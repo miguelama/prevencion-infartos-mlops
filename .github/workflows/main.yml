@@ -32,6 +32,9 @@ jobs:
     - name: Ejecutar Entrenamiento
       run: python src/train.py
 
+    - name: Ejecutar Prediccion
+      run: python src/predict.py
+
     - name: Guardar Modelo como Artefacto
       uses: actions/upload-artifact@v4
       with:
