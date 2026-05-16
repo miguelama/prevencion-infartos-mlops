@@ -22,6 +22,13 @@ jobs:
     - name: Ejecutar Preprocesamiento
       run: python src/preprocessing.py
 
+    - name: Inspeccionar Datos Procesados
+      run: |
+            echo "--- LISTA COMPLETA DE COLUMNAS ---"
+            head -n 1 data/processed/data_clean.csv
+            echo -e "\n--- PRIMERAS 3 FILAS DE DATOS ---"
+            head -n 4 data/processed/data_clean.csv
+
     - name: Ejecutar Entrenamiento
       run: python src/train.py
 
