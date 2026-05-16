@@ -24,22 +24,23 @@ if __name__ == "__main__":
     
     # Definimos los parámetros
     ruta = 'models/heart_attack_model.pkl'
+    # Datos de un paciente ficticio siguiendo el formato exacto
     paciente_prueba = {
-        'Edad': 45,
-        'IMC': 26.3,
-        'Flag_hipertension': 0,      # 1 para Sí, 0 para No
-        'Flag_corazon': 0,           # Asumiendo que esta es otra columna numérica/binaria
-        'Promedio_glucosa': 85.5,    # Ajusta según tus columnas reales
-        
-        # Columnas generadas por get_dummies (Categoría_Valor)
-        'Genero_Masculino': 1, 
+        'ID': 12345,
+        'Edad': 67,
+        'Flag_hipertension': 1,
+        'Flag_problem_cardiaco': 0,
+        'Promedio_nivel_glucosa': 228.6,
+        'IMC': 36.6,
+        'Genero_Mujer': 0,
+        'Genero_Other': 0,
+        'Tipo_trabajo_Empresa_privada': 1,
+        'Tipo_trabajo_En_gobierno': 0,
         'Tipo_trabajo_Nunca_trabajo': 0,
-        'Tipo_trabajo_Privado': 1,
-        'Tipo_trabajo_Self-employed': 0,
-        'Tipo_trabajo_children': 0,
-        'Zona_residencia_Urbana': 1,
-        'Flag_fumador_antes_fumaba': 0,
-        'Flag_fumador_fumador': 1,
+        'Tipo_trabajo_cuidar_ninos': 0,
+        'Zona_residencia_Urbano': 1,
+        'Flag_fumador_antes_fumaba': 1,
+        'Flag_fumador_fumador': 0,
         'Estados_civil_Si': 1
     }
     # Llamamos a la función
