@@ -26,7 +26,7 @@ jobs:
       run: python src/train.py
 
     - name: Guardar Modelo como Artefacto
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: modelo-entrenado
         path: models/heart_attack_model.pkl
