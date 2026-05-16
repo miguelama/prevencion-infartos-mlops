@@ -39,5 +39,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: modelo-entrenado
-        path: models/heart_attack_model.pkl
+        path: models/
 
