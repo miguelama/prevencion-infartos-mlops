@@ -30,4 +30,8 @@ def preprocess_data(input_path, output_path):
     print(f"✅ Datos validados y guardados en: {output_path}")
 
 if __name__ == "__main__":
+
+    # Línea de diagnóstico: nos dirá qué hay en data/raw/
+    print("Contenido de data/raw/:", os.listdir('data/raw/'))
+    
     preprocess_data('data/raw/Dataset_prevencion_infartos.csv', 'data/processed/data_clean.csv')
