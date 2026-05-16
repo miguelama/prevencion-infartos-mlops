@@ -27,11 +27,18 @@ def train_model(input_path, model_output_path):
     predictions = model.predict(X_test)
     print("\n📊 Reporte de Evaluación:")
     print(classification_report(y_test, predictions))
+
+    reporte = classification_report(y_test, predictions)
+    # Abrir el archivo en modo "w" (write/escribir)
+    with open("models/metrics.txt", "w") as f:
+        f.write("=== Reporte de Metricas del Modelo ===\n")
+        f.write(reporte)
     
     # 6. Guardar el modelo entrenado
     os.makedirs(os.path.dirname(model_output_path), exist_ok=True)
     joblib.dump(model, model_output_path)
     print(f"\n✅ Modelo guardado en: {model_output_path}")
+    
 
 if __name__ == "__main__":
     train_model('data/processed/data_clean.csv', 'models/heart_attack_model.pkl')
