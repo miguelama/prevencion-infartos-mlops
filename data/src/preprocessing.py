@@ -1,6 +1,15 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+def validate_data(df):
+    # Regla 1: No debe haber nulos
+    assert df.isnull().sum().sum() == 0, "Error: Se encontraron valores nulos"
+    
+    # Regla 2: Edades coherentes
+    assert df['Edad'].min() >= 0, "Error: Hay edades negativas"
+    
+    print("✅ Validación exitosa: Los datos son consistentes.")
+
 def preprocess_data(input_path, output_path):
     # 1. Cargar
     df = pd.read_csv(input_path, sep=';')
