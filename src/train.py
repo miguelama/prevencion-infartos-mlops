@@ -34,7 +34,7 @@ def train_model(input_path, model_output_path):
     guardar_matriz(y_test, nuevas_predicciones,umbral)
     
     reporte = classification_report(y_test, nuevas_predicciones)
-    print("\n📊 Reporte de Evaluación (Umbral 0.2):")
+    print("\n📊 Reporte de Evaluación (Umbral {umbral}):")
     print(reporte)
 
     # Abrir el archivo en modo "w" (write/escribir)
