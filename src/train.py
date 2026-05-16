@@ -7,6 +7,7 @@ import joblib
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 def train_model(input_path, model_output_path):
     # 1. Cargar datos limpios
