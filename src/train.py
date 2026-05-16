@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.preprocessing import StandardScaler
 import joblib
 import os
 import matplotlib.pyplot as plt
@@ -10,12 +11,42 @@ import seaborn as sns
 def train_model(input_path, model_output_path):
     # 1. Cargar datos limpios
     df = pd.read_csv(input_path)
+
+    # 1.5 Limpieza de valores imposibles
+    # Marcamos los ceros como valores nulos (NaN) para poder calcular la mediana correctamente
+    df['IMC'] = df['IMC'].replace(0, np.nan)
+    
+    # Calculamos la mediana de los valores que sí son válidos
+    mediana_imc = df['IMC'].median()
+    
+    # Rellenamos los huecos con esa mediana
+    df['IMC'] = df['IMC'].fillna(mediana_imc)
+    
+    print(f"✅ Limpieza completada. Valor de IMC corregido con la mediana: {mediana_imc:.2f}")
     
     # 2. Separar características (X) y objetivo (y)
     # Suponiendo que 'Ataque_cardiaco' es la columna a predecir
     X = df.drop('Ataque_cardiaco', axis=1)
     y = df['Ataque_cardiaco']
+
+    # Columnas numéricas que identificamos
+    cols_numericas = ['Edad', 'Promedio_nivel_glucosa', 'IMC']
     
+    # Creamos el escalador
+    scaler = StandardScaler()
+    
+    # Escalamos SOLO las numéricas en el set de entrenamiento
+    X_train[cols_numericas] = scaler.fit_transform(X_train[cols_numericas])
+    
+    # Aplicamos la MISMA escala al set de prueba (importante: solo transform, no fit)
+    X_test[cols_numericas] = scaler.transform(X_test[cols_numericas])
+
+    # Calculamos la correlación de todas las variables con la columna objetivo
+    correlaciones = df.corr()['Ataque_cardiaco'].sort_values(ascending=False)
+    
+    print("🔍 Correlación de las variables con el Ataque Cardíaco:")
+    print(correlaciones)
+
     # 3. División Entrenamiento/Prueba (80% / 20%)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
