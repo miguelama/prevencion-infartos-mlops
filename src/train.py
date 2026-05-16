@@ -19,7 +19,8 @@ def train_model(input_path, model_output_path):
     
     # 4. Entrenamiento del modelo
     print("Iniciando entrenamiento del bosque aleatorio...")
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    # model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model = RandomForestClassifier(class_weight='balanced', random_state=42)
     model.fit(X_train, y_train)
     
     # 5. Evaluación (Testing)
