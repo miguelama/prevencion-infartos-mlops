@@ -31,7 +31,7 @@ def train_model(input_path, model_output_path):
     
     umbral = 0.05
     nuevas_predicciones = (y_probs > umbral).astype(int)
-    guardar_matriz(y_test, nuevas_predicciones)
+    guardar_matriz(y_test, nuevas_predicciones,umbral)
     
     reporte = classification_report(y_test, nuevas_predicciones)
     print("\n📊 Reporte de Evaluación (Umbral 0.2):")
@@ -48,7 +48,7 @@ def train_model(input_path, model_output_path):
     joblib.dump(model, model_output_path)
     print(f"\n✅ Modelo guardado en: {model_output_path}")
 
-def guardar_matriz(y_real, y_pred):
+def guardar_matriz(y_real, y_pred, umbral):
     cm = confusion_matrix(y_real, y_pred)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
