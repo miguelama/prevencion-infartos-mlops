@@ -24,16 +24,22 @@ def train_model(input_path, model_output_path):
     model.fit(X_train, y_train)
     
     # 5. Evaluación (Testing)
-    predictions = model.predict(X_test)
-    print("\n📊 Reporte de Evaluación:")
-    print(classification_report(y_test, predictions))
+    # Obtenemos las probabilidades y las guardamos en la variable y_probs
+    y_probs = model.predict_proba(X_test)[:, 1] 
+    
+    umbral = 0.2
+    nuevas_predicciones = (y_probs > umbral).astype(int)
+    
+    reporte = classification_report(y_test, nuevas_predicciones)
+    print("\n📊 Reporte de Evaluación (Umbral 0.2):")
+    print(reporte)
 
-    reporte = classification_report(y_test, predictions)
     # Abrir el archivo en modo "w" (write/escribir)
     with open("models/metrics.txt", "w") as f:
         f.write("=== Reporte de Metricas del Modelo ===\n")
+        f.write(f"Umbral utilizado: {umbral}\n") # Es buena práctica anotar el umbral
         f.write(reporte)
-    
+        
     # 6. Guardar el modelo entrenado
     os.makedirs(os.path.dirname(model_output_path), exist_ok=True)
     joblib.dump(model, model_output_path)
