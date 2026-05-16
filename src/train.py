@@ -30,18 +30,6 @@ def train_model(input_path, model_output_path):
     X = df.drop('Ataque_cardiaco', axis=1)
     y = df['Ataque_cardiaco']
 
-    # Columnas numéricas que identificamos
-    cols_numericas = ['Edad', 'Promedio_nivel_glucosa', 'IMC']
-    
-    # Creamos el escalador
-    scaler = StandardScaler()
-    
-    # Escalamos SOLO las numéricas en el set de entrenamiento
-    X_train[cols_numericas] = scaler.fit_transform(X_train[cols_numericas])
-    
-    # Aplicamos la MISMA escala al set de prueba (importante: solo transform, no fit)
-    X_test[cols_numericas] = scaler.transform(X_test[cols_numericas])
-
     # Calculamos la correlación de todas las variables con la columna objetivo
     correlaciones = df.corr()['Ataque_cardiaco'].sort_values(ascending=False)
     
