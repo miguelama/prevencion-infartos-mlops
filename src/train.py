@@ -27,7 +27,7 @@ def train_model(input_path, model_output_path):
     # Obtenemos las probabilidades y las guardamos en la variable y_probs
     y_probs = model.predict_proba(X_test)[:, 1] 
     
-    umbral = 0.2
+    umbral = 0.05
     nuevas_predicciones = (y_probs > umbral).astype(int)
     
     reporte = classification_report(y_test, nuevas_predicciones)
