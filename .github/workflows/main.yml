@@ -30,3 +30,6 @@ jobs:
       with:
         name: modelo-entrenado
         path: models/heart_attack_model.pkl
+
+    - name: Ejecutar Prediccion
+      run: python src/predict.py
