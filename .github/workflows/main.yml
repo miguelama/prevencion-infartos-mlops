@@ -1,0 +1,32 @@
+name: MLOps_Pipeline_Infartos
+
+on:
+  push:
+    branches: [ main ] # Se activa cada vez que subes algo a la rama main
+
+jobs:
+  build-and-train:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Instalar dependencias
+      run: pip install -r requirements.txt
+
+    - name: Ejecutar Preprocesamiento
+      run: python src/preprocessing.py
+
+    - name: Ejecutar Entrenamiento
+      run: python src/train.py
+
+    - name: Guardar Modelo como Artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: modelo-entrenado
+        path: models/heart_attack_model.pkl
