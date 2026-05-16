@@ -21,4 +21,17 @@ if __name__ == "__main__":
     # Datos de ejemplo (deben coincidir con las columnas tras el preprocesamiento)
     # Por ahora, usaremos una estructura simplificada para probar la carga
     print("Cargando modelo y realizando prueba de inferencia...")
-    # (Aquí iría la lógica para procesar un input crudo antes de predecir)
+    
+    # Definimos los parámetros
+    ruta = 'models/heart_attack_model.pkl'
+    paciente_prueba = {
+        'Age': 45, 
+        'Cholesterol': 200,
+        # ... todas las demás columnas que usa tu modelo
+    }
+    
+    # Llamamos a la función
+    resultado, proba = make_prediction(ruta, paciente_prueba)
+    
+    print(f"Predicción: {resultado}")
+    print(f"Probabilidad: {proba}")
