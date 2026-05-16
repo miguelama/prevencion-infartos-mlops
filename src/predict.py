@@ -25,12 +25,22 @@ if __name__ == "__main__":
     # Definimos los parámetros
     ruta = 'models/heart_attack_model.pkl'
     paciente_prueba = {
-        'Edad': 58,
-        'IMC': 28.5,
-        'Genero_Masculino': 1,      # 1 si es Hombre, 0 si no
-        'Flag_fumador_Si': 1,       # Ejemplo de columna creada por get_dummies
-        'Zona_residencia_Urbana': 1, 
-        # ... necesitamos completar el resto aquí
+        'Edad': 45,
+        'IMC': 26.3,
+        'Flag_hipertension': 0,      # 1 para Sí, 0 para No
+        'Flag_corazon': 0,           # Asumiendo que esta es otra columna numérica/binaria
+        'Promedio_glucosa': 85.5,    # Ajusta según tus columnas reales
+        
+        # Columnas generadas por get_dummies (Categoría_Valor)
+        'Genero_Masculino': 1, 
+        'Tipo_trabajo_Nunca_trabajo': 0,
+        'Tipo_trabajo_Privado': 1,
+        'Tipo_trabajo_Self-employed': 0,
+        'Tipo_trabajo_children': 0,
+        'Zona_residencia_Urbana': 1,
+        'Flag_fumador_antes_fumaba': 0,
+        'Flag_fumador_fumador': 1,
+        'Estados_civil_Si': 1
     }
     # Llamamos a la función
     resultado, proba = make_prediction(ruta, paciente_prueba)
