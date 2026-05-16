@@ -21,6 +21,7 @@ def preprocess_data(input_path, output_path):
     # 3. Transformar categorías
     cols_to_encode = ['Genero', 'Tipo_trabajo', 'Zona_residencia', 'Flag_fumador', 'Estados_civil']
     df_final = pd.get_dummies(df, columns=cols_to_encode, drop_first=True)
+    print("Columnas finales:", df_final.columns.tolist())
     
     # --- PASO DE VALIDACIÓN ---
     # Llamamos a la función antes de guardar
