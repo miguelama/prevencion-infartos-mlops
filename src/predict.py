@@ -4,6 +4,10 @@ import pandas as pd
 def make_prediction(model_path, new_data):
     # 1. Cargar el modelo entrenado
     model = joblib.load(model_path)
+
+    # Suponiendo que el escalador tiene un nombre similar
+    scaler_path = model_path.replace('.pkl', '_scaler.pkl')
+    scaler = joblib.load(scaler_path)
     
     # 2. Convertir los datos del paciente a DataFrame
     df_patient = pd.DataFrame([new_data])
