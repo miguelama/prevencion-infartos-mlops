@@ -56,12 +56,12 @@ def train_model(input_path, model_output_path):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
     # 3.5 Escalado de variables numéricas (Ahora X_train ya existe)
-    cols_numericas = ['Edad', 'Promedio_nivel_glucosa', 'IMC']
+    cols_numericas = ['Edad', 'Promedio_nivel_glucosa', 'IMC', 'Indice_Fragilidad']
     scaler = StandardScaler()
     
     X_train[cols_numericas] = scaler.fit_transform(X_train[cols_numericas])
     X_test[cols_numericas] = scaler.transform(X_test[cols_numericas])
-    
+   
     # 4. Entrenamiento del modelo
     print("Iniciando entrenamiento del bosque aleatorio...")
     # model = RandomForestClassifier(n_estimators=100, random_state=42)
