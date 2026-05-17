@@ -7,10 +7,10 @@ def make_prediction(model_path, new_data):
     
     # 2. Convertir los datos del paciente a DataFrame
     df_patient = pd.DataFrame([new_data])
-    
-    # Nota: En un entorno real, aquí aplicaríamos las mismas 
-    # transformaciones (One-Hot Encoding) que en el preprocesamiento.
-    
+    df_patient['Indice_Fragilidad'] = df_patient['Edad'] * df_patient['IMC']
+    df_patient['Riesgo_Metabolico'] = ((df_patient['Flag_hipertension'] == 1) & (df_patient['Promedio_nivel_glucosa'] > 140)).astype(int)
+    df_patient['Es_Adulto_Mayor'] = (df_patient['Edad'] > 60).astype(int)
+
     # 3. Realizar la predicción
     prediction = model.predict(df_patient)
     probabilidad = model.predict_proba(df_patient)
@@ -45,6 +45,5 @@ if __name__ == "__main__":
     }
     # Llamamos a la función
     resultado, proba = make_prediction(ruta, paciente_prueba)
-    
     print(f"Predicción: {resultado}")
     print(f"Probabilidad: {proba}")
