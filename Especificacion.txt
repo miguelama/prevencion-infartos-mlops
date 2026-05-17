@@ -1,0 +1,33 @@
+Reporte Técnico: Sistema de Predicción de Riesgo de Infarto 
+
+1. Introducción: El objetivo de este proyecto es desarrollar un modelo de aprendizaje automático capaz de identificar a pacientes con un riesgo elevado de sufrir un infarto. 
+Dado que los eventos cardiovasculares son críticos, el modelo se diseñó priorizando la sensibilidad (detección temprana) sobre la precisión absoluta.
+
+2. Preprocesamiento y Limpieza de Datos: Para asegurar la calidad del modelo, se realizaron los siguientes pasos:
+
+Tratamiento de Valores Atípicos: Se identificaron valores imposibles en la variable IMC (índice de masa corporal). 
+Estos valores fueron corregidos utilizando la mediana del conjunto de datos para evitar sesgos por valores extremos.
+
+Escalado de Variables: Se aplicó una normalización estándar (StandardScaler) a las variables numéricas como la Edad y el 
+Nivel de Glucosa, asegurando que todas las características tengan el mismo peso durante el entrenamiento.
+
+3. Ingeniería de Características (Feature Engineering): Se crearon tres nuevas variables para capturar patrones médicos complejos que las variables originales 
+no mostraban por sí solas:
+
+Índice de Fragilidad: Resultante de la interacción entre Edad e IMC. Refleja cómo el impacto del peso corporal aumenta con la edad.
+
+Riesgo Metabólico: Una variable binaria (0 o 1) que identifica a pacientes que presentan simultáneamente Hipertensión y niveles de Glucosa superiores a 140 mg/dL.
+
+Indicador de Adulto Mayor: Una segmentación para pacientes mayores de 60 años, grupo que estadísticamente presenta un riesgo base más alto.
+
+4. Estrategia de Modelado y Evaluación:Debido a que los datos están altamente desequilibrados (pocos casos de infarto frente a muchos casos sanos), 
+se implementaron las siguientes estrategias:
+
+Algoritmo: Se utilizó un Random Forest con pesos de clase balanceados.
+
+Ajuste de Umbral (Threshold): Se modificó el umbral de decisión a 0.05.Justificación Médica: Al bajar el umbral, aumentamos el Recall (37%). 
+Esto significa que el modelo es capaz de capturar más casos reales de riesgo, aceptando una mayor cantidad de falsas alarmas en favor de no omitir a 
+pacientes que realmente necesitan atención urgente.5. Conclusión 🏁El modelo actual sirve como una herramienta de cribado inicial. 
+
+Gracias a la ingeniería de variables y el ajuste de sensibilidad, el sistema es capaz de alertar sobre riesgos que pasarían desapercibidos en un análisis 
+tradicional, permitiendo una intervención médica preventiva.
