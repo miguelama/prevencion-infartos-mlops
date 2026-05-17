@@ -89,7 +89,11 @@ def train_model(input_path, model_output_path):
     # 6. Guardar el modelo entrenado
     os.makedirs(os.path.dirname(model_output_path), exist_ok=True)
     joblib.dump(model, model_output_path)
+    # Guardamos el escalador en la misma carpeta
+    scaler_path = model_output_path.replace('.pkl', '_scaler.pkl')
+    joblib.dump(scaler, scaler_path)
     print(f"\n✅ Modelo guardado en: {model_output_path}")
+    print(f"✅ Escalador guardado en: {scaler_path}")
 
 def guardar_matriz(y_real, y_pred, umbral):
     cm = confusion_matrix(y_real, y_pred)
