@@ -24,6 +24,22 @@ def train_model(input_path, model_output_path):
     df['IMC'] = df['IMC'].fillna(mediana_imc)
     
     print(f"✅ Limpieza completada. Valor de IMC corregido con la mediana: {mediana_imc:.2f}")
+
+    # --- Paso 1.8: Ingeniería de Características ---
+    
+    # 1. Interacción Edad-IMC (Índice de Fragilidad) ⚖️
+    # Ayuda a captar cómo el peso afecta más a medida que envejecemos.
+    df['Indice_Fragilidad'] = df['Edad'] * df['IMC']
+    
+    # 2. Riesgo Metabólico Combinado 🩺
+    # Marcamos con 1 a quienes tienen Hipertensión Y Glucosa alta (ej. > 140 mg/dL)
+    df['Riesgo_Metabolico'] = ((df['Flag_hipertension'] == 1) & (df['Promedio_nivel_glucosa'] > 140)).astype(int)
+    
+    # 3. Categorización de Edad (Adulto Mayor) 👵👴
+    # Creamos una bandera para personas mayores de 60 años, donde el riesgo suele dispararse.
+    df['Es_Adulto_Mayor'] = (df['Edad'] > 60).astype(int)
+    
+    print("✅ Nuevas características creadas: Indice_Fragilidad, Riesgo_Metabolico, Es_Adulto_Mayor")
     
     # 2. Separar características (X) y objetivo (y)
     # Suponiendo que 'Ataque_cardiaco' es la columna a predecir
