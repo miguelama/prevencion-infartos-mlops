@@ -13,7 +13,7 @@ def train_model(input_path, model_output_path):
     # 1. Cargar datos limpios
     df = pd.read_csv(input_path)
 
-    # 1.5 Limpieza de valores imposibles
+    # Limpieza de valores imposibles
     # Marcamos los ceros como valores nulos (NaN) para poder calcular la mediana correctamente
     df['IMC'] = df['IMC'].replace(0, np.nan)
     
@@ -23,23 +23,23 @@ def train_model(input_path, model_output_path):
     # Rellenamos los huecos con esa mediana
     df['IMC'] = df['IMC'].fillna(mediana_imc)
     
-    print(f"✅ Limpieza completada. Valor de IMC corregido con la mediana: {mediana_imc:.2f}")
+    print(f"Limpieza completada. Valor de IMC corregido con la mediana: {mediana_imc:.2f}")
 
-    # --- Paso 1.8: Ingeniería de Características ---
+    # Ingeniería de Características 
     
-    # 1. Interacción Edad-IMC (Índice de Fragilidad) ⚖️
+    # Interacción Edad-IMC (Índice de Fragilidad) 
     # Ayuda a captar cómo el peso afecta más a medida que envejecemos.
     df['Indice_Fragilidad'] = df['Edad'] * df['IMC']
     
-    # 2. Riesgo Metabólico Combinado 🩺
+    # Riesgo Metabólico Combinado 
     # Marcamos con 1 a quienes tienen Hipertensión Y Glucosa alta (ej. > 140 mg/dL)
     df['Riesgo_Metabolico'] = ((df['Flag_hipertension'] == 1) & (df['Promedio_nivel_glucosa'] > 140)).astype(int)
     
-    # 3. Categorización de Edad (Adulto Mayor) 👵👴
+    # Categorización de Edad (Adulto Mayor) 
     # Creamos una bandera para personas mayores de 60 años, donde el riesgo suele dispararse.
     df['Es_Adulto_Mayor'] = (df['Edad'] > 60).astype(int)
     
-    print("✅ Nuevas características creadas: Indice_Fragilidad, Riesgo_Metabolico, Es_Adulto_Mayor")
+    print("Nuevas características creadas: Indice_Fragilidad, Riesgo_Metabolico, Es_Adulto_Mayor")
     
     # 2. Separar características (X) y objetivo (y)
     # Suponiendo que 'Ataque_cardiaco' es la columna a predecir
@@ -49,13 +49,13 @@ def train_model(input_path, model_output_path):
     # Calculamos la correlación de todas las variables con la columna objetivo
     correlaciones = df.corr()['Ataque_cardiaco'].sort_values(ascending=False)
     
-    print("🔍 Correlación de las variables con el Ataque Cardíaco:")
+    print("Correlación de las variables con el Ataque Cardíaco:")
     print(correlaciones)
 
     # 3. División Entrenamiento/Prueba (¡Ahora va PRIMERO!)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    # 3.5 Escalado de variables numéricas (Ahora X_train ya existe)
+    # Escalado de variables numéricas (Ahora X_train ya existe)
     cols_numericas = ['Edad', 'Promedio_nivel_glucosa', 'IMC', 'Indice_Fragilidad']
     scaler = StandardScaler()
     
@@ -77,10 +77,9 @@ def train_model(input_path, model_output_path):
     guardar_matriz(y_test, nuevas_predicciones,umbral)
     
     reporte = classification_report(y_test, nuevas_predicciones)
-    print(f"\n📊 Reporte de Evaluación (Umbral {umbral}):")
+    print(f"\nReporte de Evaluación (Umbral {umbral}):")
     print(reporte)
-
-    # Abrir el archivo en modo "w" (write/escribir)
+  
     with open("models/metrics.txt", "w") as f:
         f.write("=== Reporte de Metricas del Modelo ===\n")
         f.write(f"Umbral utilizado: {umbral}\n") # Es buena práctica anotar el umbral
@@ -89,11 +88,12 @@ def train_model(input_path, model_output_path):
     # 6. Guardar el modelo entrenado
     os.makedirs(os.path.dirname(model_output_path), exist_ok=True)
     joblib.dump(model, model_output_path)
+
     # Guardamos el escalador en la misma carpeta
     scaler_path = model_output_path.replace('.pkl', '_scaler.pkl')
     joblib.dump(scaler, scaler_path)
-    print(f"\n✅ Modelo guardado en: {model_output_path}")
-    print(f"✅ Escalador guardado en: {scaler_path}")
+    print(f"\nModelo guardado en: {model_output_path}")
+    print(f"Escalador guardado en: {scaler_path}")
 
 def guardar_matriz(y_real, y_pred, umbral):
     cm = confusion_matrix(y_real, y_pred)
@@ -106,8 +106,6 @@ def guardar_matriz(y_real, y_pred, umbral):
     plt.title(f'Matriz de Confusión (Umbral {umbral})')
     plt.savefig('models/confusion_matrix.png') # Se guarda en la carpeta de artefactos
     plt.close()
-
-
 
 if __name__ == "__main__":
     train_model('data/processed/data_clean.csv', 'models/heart_attack_model.pkl')
