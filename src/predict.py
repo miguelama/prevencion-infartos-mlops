@@ -22,12 +22,11 @@ def make_prediction(model_path, new_data):
     return prediction[0], probabilidad[0]
 
 if __name__ == "__main__":
-    # Datos de ejemplo (deben coincidir con las columnas tras el preprocesamiento)
-    # Por ahora, usaremos una estructura simplificada para probar la carga
     print("Cargando modelo y realizando prueba de inferencia...")
     
     # Definimos los parámetros
     ruta = 'models/heart_attack_model.pkl'
+    
     # Datos de un paciente ficticio siguiendo el formato exacto
     paciente_prueba = {
         'ID': 12345,
@@ -47,6 +46,7 @@ if __name__ == "__main__":
         'Flag_fumador_fumador': 0,
         'Estados_civil_Si': 1
     }
+    
     # Llamamos a la función
     resultado, proba = make_prediction(ruta, paciente_prueba)
     print(f"Predicción: {resultado}")
