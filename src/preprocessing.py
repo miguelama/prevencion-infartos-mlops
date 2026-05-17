@@ -12,7 +12,7 @@ def validate_data(df):
     print("✅ Validación exitosa: Los datos son consistentes.")
 
 def preprocess_data(input_path, output_path):
-    # 1. Cargar (Asegúrate de que el nombre coincida con tu carpeta data/raw)
+    # 1. Cargar 
     df = pd.read_csv(input_path, sep=';')
     
     # 2. Limpiar nulos
@@ -24,7 +24,7 @@ def preprocess_data(input_path, output_path):
     print("Columnas finales:", df_final.columns.tolist())
     
     # --- PASO DE VALIDACIÓN ---
-    # Llamamos a la función antes de guardar
+    # Llamamos a la función antes de guardar para la validacion de de datos
     validate_data(df_final) 
     
     # 4. Guardar
@@ -32,8 +32,5 @@ def preprocess_data(input_path, output_path):
     print(f"✅ Datos validados y guardados en: {output_path}")
 
 if __name__ == "__main__":
-
-    # Línea de diagnóstico: nos dirá qué hay en data/raw/
     print("Contenido de data/raw/:", os.listdir('data/raw/'))
-    
     preprocess_data('data/raw/Dataset_prevencion_infartos.csv', 'data/processed/data_clean.csv')
