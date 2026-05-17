@@ -9,7 +9,7 @@ def validate_data(df):
     # Regla 2: Edades coherentes
     assert df['Edad'].min() >= 0, "Error: Hay edades negativas"
     
-    print("✅ Validación exitosa: Los datos son consistentes.")
+    print("Validación exitosa: Los datos son consistentes.")
 
 def preprocess_data(input_path, output_path):
     # 1. Cargar 
@@ -29,7 +29,7 @@ def preprocess_data(input_path, output_path):
     
     # 4. Guardar
     df_final.to_csv(output_path, index=False)
-    print(f"✅ Datos validados y guardados en: {output_path}")
+    print(f"Datos validados y guardados en: {output_path}")
 
 if __name__ == "__main__":
     print("Contenido de data/raw/:", os.listdir('data/raw/'))
