@@ -1,6 +1,8 @@
 # prevencion-infartos-mlops
 
 Proyecto: Sistema Predictivo de Riesgo de Infartos.
+Alumno: Miguel Angel Muñoz Alvarado
+Curso: G1-MLOps: Del Modelo al Entorno Productivo
 
 Descripción General: Este proyecto implementa un modelo de aprendizaje automático (Machine Learning) diseñado para identificar pacientes con alto riesgo de sufrir un ataque cardíaco. 
 El enfoque principal es mejorar la detección temprana (aumentar el Recall) en un conjunto de datos altamente desequilibrado.
